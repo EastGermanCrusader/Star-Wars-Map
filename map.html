@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Star Wars Galaxy Map</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <script src="https://unpkg.com/three@0.150.1/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.150.1/examples/js/controls/OrbitControls.js"></script>
+  <script>
+    // Szene und Kamera
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 10000);
+    camera.position.z = 1000;
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Orbit Controls
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+    // Galaktisches Zentrum (z. B. Coruscant)
+    const centerGeometry = new THREE.SphereGeometry(10, 32, 32);
+    const centerMaterial = new THREE.MeshBasicMaterial({ color: 0xffd700 });
+    const coruscant = new THREE.Mesh(centerGeometry, centerMaterial);
+    scene.add(coruscant);
+
+    // Sternenwolke
+    const starsGeometry = new THREE.BufferGeometry();
+    const starsCount = 10000;
+    const positions = new Float32Array(starsCount * 3);
+    for (let i = 0; i < starsCount; i++) {
+      const x = (Math.random() - 0.5) * 4000;
+      const y = (Math.random() - 0.5) * 4000;
+      const z = (Math.random() - 0.5) * 4000;
+      positions.set([x, y, z], i * 3);
+    }
+    starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const starsMaterial = new THREE.PointsMaterial({ color: 0xaaaaaa, size: 1 });
+    const stars = new THREE.Points(starsGeometry, starsMaterial);
+    scene.add(stars);
+
+    // Animation
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth/window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
