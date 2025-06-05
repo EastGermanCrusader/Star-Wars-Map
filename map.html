@@ -10,51 +10,30 @@
   </style>
 </head>
 <body>
-  <script type="module">
-    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.module.min.js';
-    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.150.1/examples/jsm/controls/OrbitControls.js';
-
+  <script src="https://unpkg.com/three@0.150.1/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.150.1/examples/js/controls/OrbitControls.js"></script>
+<script>
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
-    camera.position.z = 1000;
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const controls = new OrbitControls(camera, renderer.domElement);
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
 
-    const centerGeometry = new THREE.SphereGeometry(10, 32, 32);
-    const centerMaterial = new THREE.MeshBasicMaterial({ color: 0xffd700 });
-    const coruscant = new THREE.Mesh(centerGeometry, centerMaterial);
-    scene.add(coruscant);
-
-    const starsGeometry = new THREE.BufferGeometry();
-    const starsCount = 10000;
-    const positions = new Float32Array(starsCount * 3);
-    for (let i = 0; i < starsCount; i++) {
-      const x = (Math.random() - 0.5) * 4000;
-      const y = (Math.random() - 0.5) * 4000;
-      const z = (Math.random() - 0.5) * 4000;
-      positions.set([x, y, z], i * 3);
-    }
-    starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const starsMaterial = new THREE.PointsMaterial({ color: 0xaaaaaa, size: 1 });
-    const stars = new THREE.Points(starsGeometry, starsMaterial);
-    scene.add(stars);
+    camera.position.z = 5;
 
     function animate() {
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
     }
     animate();
+</script>
 
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-  </script>
 </body>
 </html>
