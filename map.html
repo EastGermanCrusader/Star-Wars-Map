@@ -11,7 +11,6 @@
 </head>
 <body>
   <script type="module">
-    // ✅ Verwende vollständige URLs zu ES-Modulen
     import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.module.min.js';
     import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.150.1/examples/jsm/controls/OrbitControls.js';
 
@@ -25,28 +24,25 @@
 
     const controls = new OrbitControls(camera, renderer.domElement);
 
-    // Coruscant als Zentrum
     const centerGeometry = new THREE.SphereGeometry(10, 32, 32);
     const centerMaterial = new THREE.MeshBasicMaterial({ color: 0xffd700 });
     const coruscant = new THREE.Mesh(centerGeometry, centerMaterial);
     scene.add(coruscant);
 
-    // Sternenpunkte
     const starsGeometry = new THREE.BufferGeometry();
-    const starCount = 10000;
-    const positions = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount; i++) {
+    const starsCount = 10000;
+    const positions = new Float32Array(starsCount * 3);
+    for (let i = 0; i < starsCount; i++) {
       const x = (Math.random() - 0.5) * 4000;
       const y = (Math.random() - 0.5) * 4000;
       const z = (Math.random() - 0.5) * 4000;
       positions.set([x, y, z], i * 3);
     }
     starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 1 });
+    const starsMaterial = new THREE.PointsMaterial({ color: 0xaaaaaa, size: 1 });
     const stars = new THREE.Points(starsGeometry, starsMaterial);
     scene.add(stars);
 
-    // Animation
     function animate() {
       requestAnimationFrame(animate);
       controls.update();
@@ -54,7 +50,6 @@
     }
     animate();
 
-    // Reaktion auf Fenstergröße
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
