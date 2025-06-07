@@ -24,7 +24,7 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.target.set(0, 0, 0);
     controls.update();
@@ -71,7 +71,7 @@
     }
 
     animate();
-    // Fix 07.06.25 12:04
+    // Fix 07.06.25 12:09
   </script>
 </body>
 </html>
