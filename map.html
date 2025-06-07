@@ -18,7 +18,7 @@
     scene.background = new THREE.Color(0x000000);
 
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 5);
+    camera.position.set(0, 0, 5); 
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -26,21 +26,24 @@
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
+    controls.target.set(0, 0, 0); 
+    controls.update();
 
-    // Licht
+    
     const sun = new THREE.DirectionalLight(0xffffff, 2);
     sun.position.set(5, 5, 5);
     scene.add(sun);
 
-    const ambient = new THREE.AmbientLight(0x404040, 1.5); // zusätzliches Licht
+    const ambient = new THREE.AmbientLight(0x404040, 1.5);
     scene.add(ambient);
 
-    // Modell laden
+    
     const loader = new GLTFLoader();
     loader.load('planet_placeholder.glb', (gltf) => {
       const model = gltf.scene;
+      model.position.set(0, 0, 0); 
       model.scale.set(1, 1, 1);
-      model.rotation.y = Math.PI; // optional drehen
+      model.rotation.y = Math.PI;
       scene.add(model);
       console.log("GLB erfolgreich geladen.");
     }, undefined, (error) => {
