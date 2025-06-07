@@ -7,13 +7,13 @@
     body { margin: 0; overflow: hidden; background: black; }
     canvas { display: block; }
   </style>
-
-  <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
-  <script src="https://unpkg.com/three@0.158.0/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="https://unpkg.com/three@0.158.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
-  <script>
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
+    import { GLTFLoader } from 'https://unpkg.com/three@0.158.0/examples/jsm/loaders/GLTFLoader.js';
+    import { OrbitControls } from 'https://unpkg.com/three@0.158.0/examples/jsm/controls/OrbitControls.js';
+
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000000);
 
@@ -29,33 +29,23 @@
     controls.target.set(0, 0, 0);
     controls.update();
 
-
-    const sun = new THREE.PointLight(0xffffff, 3, 100);
-    sun.position.set(-5, -2, 0);
+    
+    const sun = new THREE.DirectionalLight(0xffffff, 2);
+    sun.position.set(10, 10, 5);
     scene.add(sun);
-
-
-    const sunMesh = new THREE.Mesh(
-      new THREE.SphereGeometry(0.3, 16, 16),
-      new THREE.MeshBasicMaterial({ color: 0xffff00 })
-    );
-    sunMesh.position.copy(sun.position);
-    scene.add(sunMesh);
-
 
     const ambient = new THREE.AmbientLight(0x404040, 1.5);
     scene.add(ambient);
 
-
-    const loader = new THREE.GLTFLoader();
+    
+    const loader = new GLTFLoader();
     loader.load('planet_placeholder.glb', (gltf) => {
       const model = gltf.scene;
       model.position.set(0, 0, 0);
       model.scale.set(1, 1, 1);
       scene.add(model);
-      console.log("GLB erfolgreich geladen.");
     }, undefined, (error) => {
-      console.error("Fehler beim Laden:", error);
+      console.error('GLB Fehler:', error);
     });
 
     window.addEventListener('resize', () => {
@@ -71,7 +61,7 @@
     }
 
     animate();
-    // Fix 07.06.25 12:09
+    // FIX 07.06.25 12:19
   </script>
 </body>
 </html>
