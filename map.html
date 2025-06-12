@@ -45,6 +45,8 @@
   const loader = new GLTFLoader();
   loader.load('model/planet_placeholder.glb', gltf => {
     const model = gltf.scene;
+    model.position.set(0, 0, 0);
+    model.scale.set(1, 1, 1);
     scene.add(model);
   }, undefined, error => {
     console.error('Fehler beim Laden:', error);
@@ -63,7 +65,7 @@
   }
 
   animate();
-  //Fix 13:59
+  // Fix 14:03
 </script> 
 </body>
 </html>
