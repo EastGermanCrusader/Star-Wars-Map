@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Star Wars Map – Planet Placeholder</title>
   <style>
-    body { margin: 0; overflow: hidden; background: black; }
-    canvas { display: block; }
+    body { margin:0; overflow:hidden; background:black; }
+    canvas { display:block; }
   </style>
 </head>
 <body>
   <script type="module">
+    // ❯ Ganz oben: Absolute CDN-URLs, kein "import 'three'" mehr
     import * as THREE        from 'https://unpkg.com/three@0.158.0/build/three.module.js';
     import { OrbitControls } from 'https://unpkg.com/three@0.158.0/examples/jsm/controls/OrbitControls.js';
     import { GLTFLoader }     from 'https://unpkg.com/three@0.158.0/examples/jsm/loaders/GLTFLoader.js';
 
+    // Szene
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000000);
 
+    // Kamera
     const camera = new THREE.PerspectiveCamera(
       60,
       window.innerWidth / window.innerHeight,
@@ -25,34 +28,37 @@
     );
     camera.position.set(0, 0, 5);
 
+    // Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
+    // Steuerung
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
 
+    // Licht
     const sun = new THREE.DirectionalLight(0xffffff, 2);
     sun.position.set(10, 10, 5);
     scene.add(sun);
+    scene.add(new THREE.AmbientLight(0x404040, 1.5));
 
-    const ambient = new THREE.AmbientLight(0x404040, 1.5);
-    scene.add(ambient);
-
-    const loader = new GLTFLoader();
-    loader.load(
+    // Modell laden (liegt im selben Ordner)
+    new GLTFLoader().load(
       'planet_placeholder.glb',
-      (gltf) => scene.add(gltf.scene),
+      gltf => scene.add(gltf.scene),
       undefined,
-      (err) => console.error('Fehler beim Laden:', err)
+      err => console.error('Fehler beim Laden:', err)
     );
 
+    // Resize-Handler
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
+    // Animation
     (function animate() {
       requestAnimationFrame(animate);
       controls.update();
@@ -60,6 +66,6 @@
     })();
   </script>
 
-  <!-- Debug Timestamp: 2025-06-12T14:30:00+02:00 -->
+  <!-- Debug Timestamp: 2025-06-12T14:53:00+02:00 -->
 </body>
 </html>
