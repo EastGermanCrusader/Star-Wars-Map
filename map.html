@@ -31,28 +31,23 @@
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
-    controls.update();
 
-    const light = new THREE.DirectionalLight(0xffffff, 2);
-    light.position.set(10, 10, 5);
-    scene.add(light);
+    const sun = new THREE.DirectionalLight(0xffffff, 2);
+    sun.position.set(10, 10, 5);
+    scene.add(sun);
 
     const ambient = new THREE.AmbientLight(0x404040, 1.5);
     scene.add(ambient);
 
+    // Korrektur: Die .glb liegt im Root, nicht in /model/
     const loader = new GLTFLoader();
     loader.load(
       'planet_placeholder.glb',
       (gltf) => {
-        const model = gltf.scene;
-        model.position.set(0, 0, 0);
-        model.scale.set(1, 1, 1);
-        scene.add(model);
+        scene.add(gltf.scene);
       },
       undefined,
-      (error) => {
-        console.error('Fehler beim Laden:', error);
-      }
+      (err) => console.error('Fehler beim Laden:', err)
     );
 
     window.addEventListener('resize', () => {
@@ -61,14 +56,12 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    function animate() {
+    (function animate() {
       requestAnimationFrame(animate);
       controls.update();
       renderer.render(scene, camera);
-    }
-
-    animate();
-    //Fix 14:22
+    })();
+    //Fix 14:§=
   </script>
 </body>
 </html>
