@@ -1,86 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Wars Map</title>
-    
-    <!-- Orbitron Font einbinden -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
-
-    
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Star Wars Map</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <style>
     body {
-        font-family: 'Orbitron', sans-serif;
-        text-align: center;
-        padding: 50px;
-        margin: 0;
-        background: url("background_index.jpg") no-repeat center center fixed;
-        background-size: cover;
-        color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+      background: url("background_index.jpg") no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
     }
-
     h1, p, .button {
-    text-shadow:
+      text-shadow:
         -1px -1px 0 #000,
          1px -1px 0 #000,
         -1px  1px 0 #000,
          1px  1px 0 #000;
-}
-
-
+    }
     .button-container {
-        margin-top: 30px;
+      margin-top: 30px;
     }
-
     .button {
-        padding: 15px 30px;
-        margin: 10px;
-        font-size: 16px;
-        cursor: pointer;
-        background-color: rgba(0, 0, 0, 0.6);
-        color: white;
-        border: none;
-        border-radius: 5px;
-        transition: background-color 0.3s;
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
     }
-
     .button:hover {
-        background-color: rgba(255, 255, 255, 0.3);
+      background-color: rgba(255, 255, 255, 0.3);
     }
-
     .description {
-        margin-top: 40px;
-        font-size: 14px;
-        color: #ccc;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #ccc;
     }
-</style>
-
+  </style>
 </head>
 <body>
-    <h1>Willkommen zur interaktiven Star Wars Karte</h1>
-    <div class="button-container">
-        <button class="button" onclick="enterVisitorMode()">Visitor Mode</button>
-        <button class="button" onclick="enterEditorMode()">Editor Mode</button>
-    </div>
-    <div class="description">
-        <p>Dies ist eine interaktive Star Wars Karte der Galaxis, erstellt für den Garry's Mod Clone Wars RP Server von Legendary Gaming Community.</p>
-        <p>This is an interactive Star Wars map of the galaxy, created for the Garry's Mod Clone Wars RP server of the Legendary Gaming Community.</p>
-        <p>Diese Webseite hat keine profitorientierte Ausrichtung.</p>
-    </div>
+  <h1>Willkommen zur interaktiven Star Wars Karte</h1>
 
-    <script>
-  function enterVisitorMode() {
-    window.location.href = "map.html";
-  }
+  <div class="button-container">
+    <button class="button" onclick="enterVisitorMode()">Visitor Mode</button>
+    <button class="button" onclick="enterEditorMode()">Editor Mode</button>
+  </div>
 
-  function enterEditorMode() {
-    alert('Editor Mode wird geladen...');
-  }
-</script>
+  <div class="description">
+    <p>
+      Dies ist eine interaktive Star Wars Karte der Galaxis, erstellt für den
+      Garry's Mod Clone Wars RP Server der Legendary Gaming Community.
+    </p>
+    <p>
+      This is an interactive Star Wars map of the galaxy, created for the
+      Garry's Mod Clone Wars RP server of the Legendary Gaming Community.
+    </p>
+    <p>Diese Webseite hat keine profitorientierte Ausrichtung.</p>
+  </div>
 
+  <script>
+    function enterVisitorMode() {
+      // Lädt die Karte
+      location.href = 'map.html';
+    }
+
+    function enterEditorMode() {
+      // Platzhalter: Editor-Modus kommt später
+      alert('Der Editor Mode ist noch in Arbeit – kommt bald!');
+    }
+    //Fix 14:22
+  </script>
 </body>
 </html>

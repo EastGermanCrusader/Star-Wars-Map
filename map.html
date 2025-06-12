@@ -10,14 +10,19 @@
 </head>
 <body>
   <script type="module">
-  import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
-  import { OrbitControls } from 'https://unpkg.com/three@0.158.0/examples/jsm/controls/OrbitControls.js';
-  import { GLTFLoader } from 'https://unpkg.com/three@0.158.0/examples/jsm/loaders/GLTFLoader.js';
+    import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
+    import { OrbitControls } from 'https://unpkg.com/three@0.158.0/examples/jsm/controls/OrbitControls.js';
+    import { GLTFLoader } from 'https://unpkg.com/three@0.158.0/examples/jsm/loaders/GLTFLoader.js';
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000000);
 
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(
+      60,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      100
+    );
     camera.position.set(0, 0, 5);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -36,14 +41,19 @@
     scene.add(ambient);
 
     const loader = new GLTFLoader();
-    loader.load('model/planet_placeholder.glb', (gltf) => {
-      const model = gltf.scene;
-      model.position.set(0, 0, 0);
-      model.scale.set(1, 1, 1);
-      scene.add(model);
-    }, undefined, (error) => {
-      console.error('Fehler beim Laden:', error);
-    });
+    loader.load(
+      'planet_placeholder.glb',
+      (gltf) => {
+        const model = gltf.scene;
+        model.position.set(0, 0, 0);
+        model.scale.set(1, 1, 1);
+        scene.add(model);
+      },
+      undefined,
+      (error) => {
+        console.error('Fehler beim Laden:', error);
+      }
+    );
 
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -58,7 +68,7 @@
     }
 
     animate();
-    //Fix 14:14
+    //Fix 14:22
   </script>
 </body>
 </html>
